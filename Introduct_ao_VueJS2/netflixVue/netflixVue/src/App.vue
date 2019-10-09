@@ -1,21 +1,42 @@
 <template>
-  <h2>Meu componente! Projeto: {{nomeProjeto}}</h2>
+  <div class="contain">
+
+    <categoria v-for="categoria in categorias" v-bind:key="categoria.id" v-bind:titulo="categoria.titulo" 
+    v-bind:filmes="categoria.filmes"></categoria>
+
+  </div>
 </template>
 
 <script>
 
+//import teste from './componentes/teste.vue'
+import Categoria from './componentes/Categoria.vue'
+
 export default {
   name: 'app',
+  components: {
+    //teste
+    Categoria,
+  },
+  created() {
+    this.$http.get('http://localhost:3000/categorias').then(resp => {
+     this.categorias = resp.body;
+    });
+  },
   data () {
     return {
-      nomeProjeto: 'Netflix com Vue'
+      nomeProjeto: 'Netflix com Vue',
+      intervalo: null,
+      categorias: [
+        
+      ],
     }
-  }
+  }, 
+  
 }
 </script>
 
 <style lang="scss">
-
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
 
 
@@ -140,7 +161,7 @@ a:hover {
 }
 
 
-.gui-card {
+.net-card {
   position: relative;
   display: inline-block;
   width: 250px;
@@ -153,13 +174,13 @@ a:hover {
   -webkit-transform-origin: center left;
           transform-origin: center left;
 }
-.gui-card__img {
+.net-card__img {
   width: 250px;
   height: 140.625px;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.gui-card__details {
+.net-card__details {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -172,15 +193,15 @@ a:hover {
   -webkit-transition: 450ms opacity;
   transition: 450ms opacity;
 }
-.gui-card__details:after,
-.gui-card__details:before {
+.net-card__details:after,
+.net-card__details:before {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
   display: #000;
 }
-.gui-card__details:after {
+.net-card__details:after {
   margin-top: -25px;
   margin-left: -25px;
   width: 50px;
@@ -192,20 +213,20 @@ a:hover {
   background: rgba(0,0,0,0.5);
   z-index: 1;
 }
-.gui-card__details:before {
+.net-card__details:before {
   content: '▶';
   left: 0;
   width: 100%;
   font-size: 30px;
-  margin-left: 7px;
-  margin-top: -13px;
+  margin-left: 5px;
+  margin-top: -15px;
   text-align: center;
   z-index: 2;
 }
-.gui-card:hover .gui-card__details {
+.net-card:hover .net-card__details {
   opacity: 1;
 }
-.gui-card__title {
+.net-card__title {
   position: absolute;
   bottom: 0;
   padding: 10px;
@@ -214,15 +235,15 @@ a:hover {
   -webkit-transform: translate3d(-62.5px, 0, 0);
           transform: translate3d(-62.5px, 0, 0);
 }
-.row__inner:hover .gui-card {
+.row__inner:hover .net-card {
   opacity: 0.3;
 }
-.row__inner:hover .gui-card:hover {
+.row__inner:hover .net-card:hover {
   -webkit-transform: scale(1.5);
           transform: scale(1.5);
   opacity: 1;
 }
-.gui-card:hover ~ .gui-card {
+.net-card:hover ~ .net-card {
   -webkit-transform: translate3d(125px, 0, 0);
           transform: translate3d(125px, 0, 0);
 }

@@ -1,6 +1,6 @@
-# netflix_vue
+# netflixvue
 
-> A Vue.js project
+> Primeiro projeto vueJS
 
 ## Build Setup
 
